@@ -1,0 +1,140 @@
+[gd_scene load_steps=10 format=3 uid="uid://wpd1hu771wt1"]
+
+[ext_resource type="Script" uid="uid://bib5q5ohcuuvf" path="res://src/script/InteractObjects/chest.gd" id="1_3pa1u"]
+[ext_resource type="PackedScene" uid="uid://cr1djo785sgb6" path="res://src/assets/levels/ocean/chest1.glb" id="2_ir0qn"]
+[ext_resource type="PackedScene" uid="uid://d2ulwe71p1e8y" path="res://src/assets/levels/ocean/key.glb" id="3_ir0qn"]
+[ext_resource type="AudioStream" uid="uid://cfyfmolvb6axk" path="res://src/assets/sounds/chest_open.mp3" id="4_0lk1g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ir0qn"]
+size = Vector3(1.39, 1, 1.98)
+
+[sub_resource type="Animation" id="Animation_g7j1i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("chest1/Chest-Head-Details-3_Material_001_0:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.136645, -1.5708, 1.5708)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("chest1/Chest-Head-Details-3_Material_001_0:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.567981, 1.18484, -0.0251341)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("chest1/Sketchfab_Scene:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.566484, 0.36436, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3p5u2"]
+resource_name = "open"
+length = 2.084
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("chest1/Chest-Head-Details-3_Material_001_0:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.766667, 1.13333, 1.5, 2.03333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.136645, -1.5708, 1.5708), Vector3(-0.422548, -1.5708, 1.5708), Vector3(-0.720423, -1.5708, 1.5708), Vector3(-0.99985, -1.5708, 1.5708), Vector3(-1.35007, -1.5708, 1.5708), Vector3(-1.49942, -1.5708, 1.5708)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("chest1/Chest-Head-Details-3_Material_001_0:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.766667, 1.13333, 1.5, 2.03333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.567981, 1.18484, -0.0251341), Vector3(-0.479393, 1.26895, -0.0251341), Vector3(-0.392961, 1.39558, -0.0251341), Vector3(-0.28782, 1.48153, -0.0251341), Vector3(-0.122309, 1.48153, -0.0251341), Vector3(-0.0686252, 1.48153, -0.0251341)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("chest1/Sketchfab_Scene:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.03333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.566484, 0.36436, 0), Vector3(-0.566484, 1.39977, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gblgf"]
+_data = {
+&"RESET": SubResource("Animation_g7j1i"),
+&"open": SubResource("Animation_3p5u2")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fsnnv"]
+size = Vector3(3.025, 1.99, 2.945)
+
+[node name="Chest" type="Node3D"]
+script = ExtResource("1_3pa1u")
+
+[node name="chest1" parent="." instance=ExtResource("2_ir0qn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58384, 0, 0.328611)
+
+[node name="Chest-Head-Details-3_Material_001_0" parent="chest1" index="0"]
+transform = Transform3D(0.0687093, 1.57719e-06, -0.499697, 0.499697, -1.8089e-06, 0.0687093, -1.57719e-06, -0.504398, -1.8089e-06, -0.567981, 1.18484, -0.0251341)
+
+[node name="Sketchfab_Scene" parent="chest1" instance=ExtResource("3_ir0qn")]
+transform = Transform3D(0.002, 0, 0, 0, 0.002, 0, 0, 0, 0.002, -0.566484, 0.36436, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="chest1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chest1/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49448, 0.598422, 0)
+shape = SubResource("BoxShape3D_ir0qn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gblgf")
+}
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17289, 0.184585)
+shape = SubResource("BoxShape3D_fsnnv")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(0.05441, 0, -0.998519, 0, 1, 0, 0.998519, 0, 0.05441, 0, 2.18531, 0.37918)
+text = "Presiona \"E\" para abrir"
+font_size = 52
+
+[node name="OpenSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_0lk1g")
+volume_db = 51.47
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+
+[editable path="chest1"]

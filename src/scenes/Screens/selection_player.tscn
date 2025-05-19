@@ -1,0 +1,415 @@
+[gd_scene load_steps=23 format=3 uid="uid://wdpehppfwob4"]
+
+[ext_resource type="FontFile" uid="uid://bxnqyjurwykgt" path="res://src/assets/fonts/Nokia 3410.ttf" id="1_bda21"]
+[ext_resource type="Script" uid="uid://cjhedql7p3ag8" path="res://src/script/Screens/select_player.gd" id="1_u7108"]
+[ext_resource type="AudioStream" uid="uid://boei8xndn4jbf" path="res://src/assets/sounds/pc_on.mp3" id="2_ho0o3"]
+[ext_resource type="VideoStream" uid="uid://bv41tf4knrvau" path="res://src/assets/player/scanned/char1.ogv" id="2_nisap"]
+[ext_resource type="AudioStream" uid="uid://sblj1u8ejf7e" path="res://src/assets/sounds/selection_audio.ogg" id="3_6aafb"]
+[ext_resource type="Texture2D" uid="uid://bv71lsnsbsmvr" path="res://src/main_menu/change_button.png" id="3_43078"]
+[ext_resource type="VideoStream" uid="uid://4e4if1iqvkuq" path="res://src/assets/player/scanned/char2.ogv" id="3_nisap"]
+[ext_resource type="VideoStream" uid="uid://pwmqt28kbluc" path="res://src/assets/player/scanned/char3.ogv" id="4_1wcs8"]
+[ext_resource type="Texture2D" uid="uid://cdueboxfisdpq" path="res://src/main_menu/change_button_2.png" id="4_no0v0"]
+[ext_resource type="Texture2D" uid="uid://csl86qy8an1po" path="res://src/main_menu/select_screen.png" id="10_4r3mn"]
+[ext_resource type="Shader" uid="uid://dct1g77yeoicx" path="res://src/Shaders/vhs.gdshader" id="11_yjjv5"]
+[ext_resource type="Texture2D" uid="uid://gf533nqrvuok" path="res://src/Shaders/rgba-noise-medium.png" id="12_oo58d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ho0o3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bda21"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u7108"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6aafb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4r3mn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1jvuc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yjjv5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oo58d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ftpsq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1jvuc"]
+shader = ExtResource("11_yjjv5")
+shader_parameter/vhs_resolution = Vector2(320, 240)
+shader_parameter/samples = 2
+shader_parameter/crease_noise = 1.0
+shader_parameter/crease_opacity = 0.5
+shader_parameter/filter_intensity = 0.2
+shader_parameter/tape_crease_smear = 0.2
+shader_parameter/tape_crease_intensity = 0.2
+shader_parameter/tape_crease_jitter = 0.1
+shader_parameter/tape_crease_speed = 0.5
+shader_parameter/tape_crease_discoloration = 0.0
+shader_parameter/bottom_border_thickness = 6.0
+shader_parameter/bottom_border_jitter = 6.0
+shader_parameter/noise_intensity = 0.2
+shader_parameter/noise_texture = ExtResource("12_oo58d")
+
+[node name="SelectionControllers" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u7108")
+
+[node name="MainAudio" type="Node" parent="."]
+
+[node name="StartAudio" type="AudioStreamPlayer" parent="MainAudio"]
+stream = ExtResource("2_ho0o3")
+volume_db = -9.08
+
+[node name="AmbientAudio" type="AudioStreamPlayer" parent="MainAudio"]
+stream = ExtResource("3_6aafb")
+volume_db = -9.08
+
+[node name="Background" type="ColorRect" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+
+[node name="MainInformation" type="Control" parent="."]
+visible = false
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InformationTitle" type="Label" parent="MainInformation"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0659722
+anchor_top = 0.33179
+anchor_right = 0.335069
+anchor_bottom = 0.375
+offset_top = 1.52588e-05
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("1_bda21")
+theme_override_font_sizes/font_size = 25
+text = "Información disponible:"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Header" type="VBoxContainer" parent="MainInformation"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0651042
+anchor_top = 0.0833333
+anchor_right = 0.8125
+anchor_bottom = 0.276235
+theme_override_constants/separation = 20
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="MainInformation/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("1_bda21")
+theme_override_font_sizes/font_size = 41
+text = "SELECCIONA AL TRABAJADOR"
+
+[node name="Subtitle" type="Label" parent="MainInformation/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("1_bda21")
+theme_override_font_sizes/font_size = 28
+text = "para enviar a la misión"
+
+[node name="Character1" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ScanCharacter" type="VideoStreamPlayer" parent="Character1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.567708
+anchor_top = 0.0540123
+anchor_right = 0.967882
+anchor_bottom = 0.881173
+stream = ExtResource("2_nisap")
+autoplay = true
+expand = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="CharacterName" type="Label" parent="Character1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.628472
+anchor_top = 0.800926
+anchor_right = 0.920139
+anchor_bottom = 0.939815
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("1_bda21")
+theme_override_font_sizes/font_size = 36
+text = "ECHO-9"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Description" type="Label" parent="Character1"]
+layout_mode = 2
+anchor_left = 0.0659722
+anchor_top = 0.421
+anchor_right = 0.757
+anchor_bottom = 0.626543
+offset_top = 0.191986
+offset_right = -0.0640259
+offset_bottom = -16.0
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("1_bda21")
+theme_override_font_sizes/font_size = 18
+text = "ECHO-9 es una unidad asignada a tareas de riesgo elevado donde la 
+pérdida de personal sería “costosa” (léase: emocionalmente inconveniente 
+para Recursos Humanos). Originalmente parte de una tripulación ahora 
+desaparecida, ECHO-9 fue recuperado con daños menores... en su traje. 
+De su comportamiento, bueno, algo regresó.
+"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Character2" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ScanCharacter" type="VideoStreamPlayer" parent="Character2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.596354
+anchor_top = 0.0925926
+anchor_right = 0.965278
+anchor_bottom = 0.867284
+stream = ExtResource("3_nisap")
+autoplay = true
+expand = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="CharacterName" type="Label" parent="Character2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.628472
+anchor_top = 0.800926
+anchor_right = 0.920139
+anchor_bottom = 0.939815
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("1_bda21")
+theme_override_font_sizes/font_size = 36
+text = "KINO-3"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Description" type="Label" parent="Character2"]
+layout_mode = 2
+anchor_left = 0.0659722
+anchor_top = 0.421
+anchor_right = 0.757
+anchor_bottom = 0.626543
+offset_top = 0.191986
+offset_right = -0.0640259
+offset_bottom = -16.0
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("1_bda21")
+theme_override_font_sizes/font_size = 18
+text = "KINO-3 se unió al equipo con un historial limpio, una tasa de supervivencia 
+alta y… un casco de… buzo? No, no sabemos por qué. Dice que le “ayuda a 
+mantener el enfoque” y que “la moda también es parte de la moral operativa”. 
+Nadie se atreve a discutirlo, principalmente porque su índice de éxito es 
+ridículamente alto."
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Character3" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ScanCharacter" type="VideoStreamPlayer" parent="Character3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.585069
+anchor_top = 0.0740741
+anchor_right = 0.953993
+anchor_bottom = 0.834877
+stream = ExtResource("4_1wcs8")
+autoplay = true
+expand = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="CharacterName" type="Label" parent="Character3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.628472
+anchor_top = 0.800926
+anchor_right = 0.920139
+anchor_bottom = 0.939815
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("1_bda21")
+theme_override_font_sizes/font_size = 36
+text = "DELTA-5"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Description" type="Label" parent="Character3"]
+layout_mode = 2
+anchor_left = 0.0659722
+anchor_top = 0.421
+anchor_right = 0.757
+anchor_bottom = 0.626543
+offset_top = 0.191986
+offset_right = -0.0640259
+offset_bottom = -16.0
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("1_bda21")
+theme_override_font_sizes/font_size = 18
+text = "DELTA-5 fue diseñada para sobrevivir en entornos hostiles, negociar con 
+criaturas semiinteligentes y trabajar en equipo, aunque esta última habilidad 
+aún está en fase beta. Es precisa, eficiente, y tiene un talento especial para 
+encontrar cosas que no deberían estar ahí…"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Buttons" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchor_top = 0.688272
+anchor_right = 1.0
+anchor_bottom = 0.95216
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SelectedCharacter" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.196181
+anchor_top = 0.094
+anchor_right = 0.545
+anchor_bottom = 0.409
+offset_top = -0.0740013
+offset_right = 0.159973
+offset_bottom = 0.060997
+theme_override_colors/font_hover_color = Color(0.594076, 0.997531, 0.52485, 1)
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_colors/font_focus_color = Color(0.262745, 0.835294, 0.133333, 1)
+theme_override_colors/font_pressed_color = Color(0.262745, 0.835294, 0.133333, 1)
+theme_override_fonts/font = ExtResource("1_bda21")
+theme_override_font_sizes/font_size = 41
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ho0o3")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_bda21")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_u7108")
+text = "Enviar a la misión"
+alignment = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonLeft" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.633681
+anchor_top = 0.51462
+anchor_right = 0.684028
+anchor_bottom = 0.871345
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6aafb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_4r3mn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_1jvuc")
+icon = ExtResource("3_43078")
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonRight" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.861111
+anchor_top = 0.51462
+anchor_right = 0.911458
+anchor_bottom = 0.871345
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yjjv5")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_oo58d")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ftpsq")
+icon = ExtResource("4_no0v0")
+metadata/_edit_use_anchors_ = true
+
+[node name="Transition" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ScreenTransition" type="TextureRect" parent="Transition"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.136285
+anchor_top = 0.526235
+anchor_right = 0.875
+anchor_bottom = 0.598765
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("10_4r3mn")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ScreenTransition2" type="TextureRect" parent="Transition"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.136285
+anchor_top = 0.410494
+anchor_right = 0.891493
+anchor_bottom = 0.680556
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("10_4r3mn")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_1jvuc")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="finished" from="MainAudio/StartAudio" to="." method="_on_start_audio_finished"]
+[connection signal="pressed" from="Buttons/SelectedCharacter" to="." method="_on_selected_character_pressed"]
+[connection signal="pressed" from="Buttons/ButtonLeft" to="." method="_on_button_left_pressed"]
+[connection signal="pressed" from="Buttons/ButtonRight" to="." method="_on_button_right_pressed"]

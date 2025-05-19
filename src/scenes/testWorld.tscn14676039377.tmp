@@ -1,0 +1,94 @@
+[gd_scene load_steps=15 format=3 uid="uid://w6q7m3qpdy0o"]
+
+[ext_resource type="Texture2D" uid="uid://dt4vlh80kgdhl" path="res://src/assets/player/Grid.png" id="1_1g8gj"]
+[ext_resource type="PackedScene" uid="uid://bx154o1mgfwgj" path="res://src/scenes/character.tscn" id="2_hritp"]
+[ext_resource type="Script" uid="uid://ip03wikx5agc" path="res://src/scenes/player.gd" id="2_nqffv"]
+[ext_resource type="Script" uid="uid://ckjv3o1byxfdy" path="res://src/script/camera_controller.gd" id="3_162j2"]
+[ext_resource type="Resource" uid="uid://tsym6i8546hh" path="res://src/script/MovementState/idle.tres" id="3_vnhe1"]
+[ext_resource type="Resource" uid="uid://bnw3wfn4xp8h8" path="res://src/script/MovementState/run.tres" id="4_sgelj"]
+[ext_resource type="Resource" uid="uid://drn33sti1s3ao" path="res://src/script/MovementState/walk.tres" id="5_qc8d5"]
+[ext_resource type="Script" uid="uid://boxy4f3jy4i0b" path="res://src/script/movement_controller.gd" id="6_vnhe1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_162j2"]
+sky_top_color = Color(0.224155, 0.459845, 0.702727, 1)
+sky_horizon_color = Color(0.605448, 0.642381, 0.835424, 1)
+
+[sub_resource type="Sky" id="Sky_r122g"]
+sky_material = SubResource("ProceduralSkyMaterial_162j2")
+
+[sub_resource type="Environment" id="Environment_2hxuc"]
+background_mode = 2
+sky = SubResource("Sky_r122g")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_162j2"]
+albedo_texture = ExtResource("1_1g8gj")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2hxuc"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hritp"]
+radius = 0.07
+
+[node name="MainScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2hxuc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.99363, -0.0670745, 0.0905527, -0.105937, -0.829958, 0.547674, 0.0384199, -0.553779, -0.831777, 0, 0.936893, 0)
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 3, 0, 0, 0, 200, -2.32581, 0, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_162j2")
+
+[node name="Wall" type="CSGBox3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 3, 0, 0, 0, 2, -2.32581, 3.04337, -5.65477)
+use_collision = true
+material = SubResource("StandardMaterial3D_162j2")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.1187)
+script = ExtResource("2_nqffv")
+movement_states = {
+"idle": ExtResource("3_vnhe1"),
+"run": ExtResource("4_sgelj"),
+"walk": ExtResource("5_qc8d5")
+}
+
+[node name="MovementController" type="Node" parent="Player" node_paths=PackedStringArray("player", "mesh_root")]
+script = ExtResource("6_vnhe1")
+player = NodePath("..")
+mesh_root = NodePath("../MeshRoot")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.47928, 0)
+shape = SubResource("CapsuleShape3D_2hxuc")
+
+[node name="MeshRoot" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.47928, 0)
+
+[node name="character" parent="Player/MeshRoot" instance=ExtResource("2_hritp")]
+transform = Transform3D(-0.199918, 0, 0.00574136, 0, 0.2, 0, -0.00574136, 0, -0.199918, 0, -0.976439, 0)
+
+[node name="CamRoot" type="Node3D" parent="Player"]
+transform = Transform3D(-0.98915, 0, -0.146912, 0, 1, 0, 0.146912, 0, -0.98915, 0, 0, 0)
+script = ExtResource("3_162j2")
+
+[node name="CamYaw" type="Node3D" parent="Player/CamRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="CamPitch" type="Node3D" parent="Player/CamRoot/CamYaw"]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player/CamRoot/CamYaw/CamPitch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.78547, 0)
+shape = SubResource("SphereShape3D_hritp")
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="Player/CamRoot/CamYaw/CamPitch/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 0.949606, 0.313446, 0, -0.313446, 0.949606, 0, 1.62242, 2.01733)
+
+[connection signal="set_movement_direction" from="Player" to="Player/MovementController" method="_on_set_movement_direction"]
+[connection signal="set_movement_state" from="Player" to="Player/MovementController" method="_on_set_movement_state"]
+[connection signal="set_cam_rotation" from="Player/CamRoot" to="Player/MovementController" method="_on_set_cam_rotation"]

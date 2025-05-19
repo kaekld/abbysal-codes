@@ -1,0 +1,348 @@
+[gd_scene load_steps=56 format=3 uid="uid://uwjuk3g2kafm"]
+
+[ext_resource type="Script" uid="uid://d2k0xnav5hgsu" path="res://src/script/Player/player.gd" id="1_3nbsf"]
+[ext_resource type="Resource" uid="uid://d2xdflmd3t37y" path="res://src/script/Player/MovementStates/idle.tres" id="2_ppgf4"]
+[ext_resource type="Resource" uid="uid://bp71ok7orr65t" path="res://src/script/Player/MovementStates/idle_aim.tres" id="3_kyr45"]
+[ext_resource type="Resource" uid="uid://7owpwj4tbs71" path="res://src/script/Player/MovementStates/run.tres" id="4_vjskg"]
+[ext_resource type="Resource" uid="uid://b3r524eoprfpb" path="res://src/script/Player/MovementStates/walk.tres" id="5_aeqer"]
+[ext_resource type="Resource" uid="uid://51ah0tcyd8uy" path="res://src/script/Player/MovementStates/walk_aim.tres" id="6_ltlo5"]
+[ext_resource type="PackedScene" uid="uid://dqefrgpyt8jas" path="res://src/assets/player/character3.glb" id="7_4fwop"]
+[ext_resource type="PackedScene" uid="uid://ba0fty2lh1iji" path="res://src/scenes/Player/spacegun.tscn" id="8_7cm77"]
+[ext_resource type="Script" uid="uid://ccp3dlwfvpxjl" path="res://src/script/Player/camera_spring_arm.gd" id="9_h4062"]
+[ext_resource type="Script" uid="uid://b7uylt40t07b7" path="res://src/script/Player/camera_follow.gd" id="10_h4be7"]
+[ext_resource type="Script" uid="uid://bj248auk6f5sg" path="res://src/script/Player/movement_controller.gd" id="11_sorps"]
+[ext_resource type="Script" uid="uid://comn1yh4sxpv0" path="res://src/script/Player/animation_controller.gd" id="12_3uaa5"]
+[ext_resource type="AudioStream" uid="uid://cfcy3k7tudnri" path="res://src/assets/sounds/step_left.wav" id="13_dhfis"]
+[ext_resource type="AudioStream" uid="uid://bqdcqqu503waf" path="res://src/assets/sounds/step_right.wav" id="14_btisn"]
+[ext_resource type="AudioStream" uid="uid://en0yn34vyh1e" path="res://src/assets/sounds/metal_step_1.wav" id="15_8jfjn"]
+[ext_resource type="AudioStream" uid="uid://bk8bsjof0ak0x" path="res://src/assets/sounds/metal_step_2.wav" id="16_inmhl"]
+[ext_resource type="AudioStream" uid="uid://dc4r0jj3lb71m" path="res://src/assets/sounds/metal_step_3.wav" id="17_s78dk"]
+[ext_resource type="Script" uid="uid://cydlbtndjn7ik" path="res://src/script/Screens/pause_menu.gd" id="18_ltlo5"]
+[ext_resource type="FontFile" uid="uid://blase4ea6ciwk" path="res://src/assets/fonts/VCR_OSD_MONO_1.001.ttf" id="19_05dl3"]
+[ext_resource type="Shader" uid="uid://dct1g77yeoicx" path="res://src/Shaders/vhs.gdshader" id="20_7cm77"]
+[ext_resource type="Texture2D" uid="uid://gf533nqrvuok" path="res://src/Shaders/rgba-noise-medium.png" id="21_h4062"]
+[ext_resource type="AudioStream" uid="uid://dnek04hr8potb" path="res://src/assets/sounds/pause_sound.mp3" id="22_h4be7"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3nbsf"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ppgf4"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kyr45"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vjskg"]
+animation = &"walk_pointing"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aeqer"]
+animation = &"idle_pointing"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_v3w2s"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_3nbsf")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_ppgf4")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_kyr45")
+blend_point_2/pos = Vector2(2, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_vjskg")
+blend_point_3/pos = Vector2(1, 1)
+blend_point_4/node = SubResource("AnimationNodeAnimation_aeqer")
+blend_point_4/pos = Vector2(0, 1)
+min_space = Vector2(0, 0)
+max_space = Vector2(2, 1)
+snap = Vector2(1, 1)
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_t8ovq"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ltlo5"]
+graph_offset = Vector2(-57.9064, 67.3003)
+nodes/BlendSpace2D/node = SubResource("AnimationNodeBlendSpace2D_v3w2s")
+nodes/BlendSpace2D/position = Vector2(106.667, 106.667)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_t8ovq")
+nodes/TimeScale/position = Vector2(373.333, 80)
+nodes/output/position = Vector2(533.333, 106.667)
+node_connections = [&"TimeScale", 0, &"BlendSpace2D", &"output", 0, &"TimeScale"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nhyte"]
+radius = 0.429686
+height = 1.99176
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oyhgt"]
+radius = 0.3
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fp6hg"]
+streams_count = 2
+stream_0/stream = ExtResource("13_dhfis")
+stream_1/stream = ExtResource("14_btisn")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_d4og5"]
+streams_count = 3
+stream_0/stream = ExtResource("15_8jfjn")
+stream_1/stream = ExtResource("16_inmhl")
+stream_2/stream = ExtResource("17_s78dk")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sorps"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3uaa5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dhfis"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btisn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8jfjn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_inmhl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s78dk"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tew18"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gy74b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s0flv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qlh6b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ais1k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s2uh5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2rld2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_koqsi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gylvy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hqt4i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n53ah"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wha34"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ad8l6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ry0ko"]
+shader = ExtResource("20_7cm77")
+shader_parameter/vhs_resolution = Vector2(320, 240)
+shader_parameter/samples = 2
+shader_parameter/crease_noise = 1.0
+shader_parameter/crease_opacity = 0.5
+shader_parameter/filter_intensity = 0.7
+shader_parameter/tape_crease_smear = 0.2
+shader_parameter/tape_crease_intensity = 0.3
+shader_parameter/tape_crease_jitter = 0.27
+shader_parameter/tape_crease_speed = -1.3
+shader_parameter/tape_crease_discoloration = 1.6
+shader_parameter/bottom_border_thickness = 6.0
+shader_parameter/bottom_border_jitter = 6.0
+shader_parameter/noise_intensity = 0.4
+shader_parameter/noise_texture = ExtResource("21_h4062")
+
+[node name="PlayerDefault" type="CharacterBody3D"]
+script = ExtResource("1_3nbsf")
+movement_states = {
+"idle": ExtResource("2_ppgf4"),
+"idle_aim": ExtResource("3_kyr45"),
+"run": ExtResource("4_vjskg"),
+"walk": ExtResource("5_aeqer"),
+"walk_aim": ExtResource("6_ltlo5")
+}
+
+[node name="CharacterSkin" parent="." instance=ExtResource("7_4fwop")]
+transform = Transform3D(-0.22, 0, 1.9233e-08, 0, 0.22, 0, -1.9233e-08, 0, -0.22, 0.035, 0, -0.079)
+
+[node name="Armature" parent="CharacterSkin" index="1"]
+transform = Transform3D(0.995015, 0, 0, 0, 0.995015, 0, 0, 0, 0.995015, -0.0842575, -0.0259085, -0.0118301)
+
+[node name="Skeleton3D" parent="CharacterSkin/Armature" index="0"]
+bones/0/position = Vector3(0.00428302, 0.244637, 0.864203)
+bones/0/rotation = Quaternion(-0.00453728, 0.730579, 0.682788, 0.00578114)
+bones/1/position = Vector3(0.905954, -0.936963, 6.9143)
+bones/1/rotation = Quaternion(-0.810442, -0.113877, -0.044128, 0.572947)
+bones/2/rotation = Quaternion(-0.317017, -0.0150957, 0.0906904, 0.943953)
+bones/4/rotation = Quaternion(0.205441, -0.29593, 0.821809, -0.441416)
+bones/5/rotation = Quaternion(-0.416194, -0.143019, 0.352351, 0.82594)
+bones/6/rotation = Quaternion(0.0551622, 0.0176462, 0.173902, 0.983058)
+bones/9/position = Vector3(-0.884288, -0.959199, 6.91449)
+bones/9/rotation = Quaternion(-0.403784, 0.098393, 0.111455, 0.902693)
+bones/10/rotation = Quaternion(-0.21408, 0.0150702, -0.11956, 0.969355)
+bones/13/rotation = Quaternion(-0.221829, 0.392026, 0.259412, 0.854291)
+bones/14/rotation = Quaternion(0.0486652, -0.0431221, -0.49742, 0.86507)
+bones/17/rotation = Quaternion(-0.00436713, 0.706251, 0.707934, -0.00443438)
+bones/19/rotation = Quaternion(-0.273493, -0.00269891, 0.0148482, 0.961756)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="CharacterSkin/Armature/Skeleton3D" index="1"]
+transform = Transform3D(-0.997558, -0.0184997, -0.0673435, 0.0123221, -0.995773, 0.0910171, -0.0687426, 0.0899651, 0.993569, 1.33964, 5.3063, 0.72402)
+bone_name = "Bone.005.L"
+bone_idx = 11
+
+[node name="SpaceGun" parent="CharacterSkin/Armature/Skeleton3D/BoneAttachment3D" instance=ExtResource("8_7cm77")]
+transform = Transform3D(-0.22942, -0.013759, 0.0490107, -0.0502796, 0.0258777, -0.228095, 0.00795772, -0.233165, -0.0282071, 0.160564, 0.622726, -0.532701)
+
+[node name="SciFi_gun_smg_006_Material_001_0" parent="CharacterSkin/Armature/Skeleton3D/BoneAttachment3D/SpaceGun" index="0"]
+transform = Transform3D(-0.998921, 0.0464441, 3.63798e-09, -4.65661e-10, -4.47035e-08, 1, 0.0464441, 0.998921, 4.09782e-08, 0, 0, -0.0671472)
+
+[node name="RayCast3D" parent="CharacterSkin/Armature/Skeleton3D/BoneAttachment3D/SpaceGun" index="2"]
+transform = Transform3D(-0.966766, -0.158275, 0.200782, -0.162756, 0.986649, -0.00589986, -0.197168, -0.0383822, -0.979618, -0.00829673, 0.755959, -4.8367)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="CharacterSkin/Armature" index="1"]
+transform = Transform3D(4.55443, 5.4366e-08, 0.354762, -0.0482941, 4.5257, 0.619997, -0.35146, -0.621875, 4.51203, -0.177552, 5.45442, 0.0521112)
+spot_range = 9.48
+spot_attenuation = -0.84
+spot_angle = 35.77
+
+[node name="AnimationTree" type="AnimationTree" parent="CharacterSkin"]
+tree_root = SubResource("AnimationNodeBlendTree_ltlo5")
+anim_player = NodePath("../AnimationPlayer")
+parameters/BlendSpace2D/blend_position = Vector2(1.99474, -0.00373137)
+parameters/TimeScale/scale = 1.01643
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.966495, -0.0528408)
+shape = SubResource("CapsuleShape3D_nhyte")
+
+[node name="SpringArmPivot" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.755, 0.340011)
+script = ExtResource("9_h4062")
+camera = NodePath("Camera")
+mouse_sensibility = 0.001
+
+[node name="SpringArm3D" type="SpringArm3D" parent="SpringArmPivot"]
+shape = SubResource("SphereShape3D_oyhgt")
+spring_length = 3.0
+
+[node name="SpringPosition" type="Node3D" parent="SpringArmPivot/SpringArm3D"]
+
+[node name="Camera" type="Camera3D" parent="SpringArmPivot" node_paths=PackedStringArray("spring_arm")]
+script = ExtResource("10_h4be7")
+spring_arm = NodePath("../SpringArm3D/SpringPosition")
+lerp_power = 6.0
+
+[node name="MovementController" type="Node" parent="." node_paths=PackedStringArray("player", "mesh_root", "camera")]
+script = ExtResource("11_sorps")
+player = NodePath("..")
+mesh_root = NodePath("../CharacterSkin/Armature")
+camera = NodePath("../SpringArmPivot")
+
+[node name="AnimationController" type="Node" parent="." node_paths=PackedStringArray("animation_tree", "player")]
+script = ExtResource("12_3uaa5")
+animation_tree = NodePath("../CharacterSkin/AnimationTree")
+player = NodePath("..")
+
+[node name="Sounds" type="Node3D" parent="."]
+
+[node name="GrassSteps" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = SubResource("AudioStreamRandomizer_fp6hg")
+volume_db = 14.546
+
+[node name="MetalSteps" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = SubResource("AudioStreamRandomizer_d4og5")
+volume_db = -6.612
+
+[node name="FloorTypeRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.312091, -0.049876)
+collision_mask = 2
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+script = ExtResource("18_ltlo5")
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
+modulate = Color(1, 1, 1, 0.658824)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.209908, 0.209908, 0.209908, 1)
+
+[node name="Title" type="Label" parent="PauseMenu"]
+anchors_preset = -1
+anchor_left = 0.264757
+anchor_top = 0.117284
+anchor_right = 0.735243
+anchor_bottom = 0.214506
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("19_05dl3")
+theme_override_font_sizes/font_size = 71
+text = "_ PAUSE MENU_"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Continue" type="Button" parent="PauseMenu"]
+anchors_preset = -1
+anchor_left = 0.0711806
+anchor_top = 0.472222
+anchor_right = 0.338542
+anchor_bottom = 0.580247
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("19_05dl3")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sorps")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_3uaa5")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_dhfis")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_btisn")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8jfjn")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_inmhl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_s78dk")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_tew18")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gy74b")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_s0flv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qlh6b")
+text = "Continuar"
+alignment = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Exit" type="Button" parent="PauseMenu"]
+anchors_preset = -1
+anchor_left = 0.0711806
+anchor_top = 0.631173
+anchor_right = 0.338542
+anchor_bottom = 0.739198
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("19_05dl3")
+theme_override_font_sizes/font_size = 42
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ais1k")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_s2uh5")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2rld2")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_koqsi")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_gylvy")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_hqt4i")
+theme_override_styles/hover = SubResource("StyleBoxFlat_s78dk")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_n53ah")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wha34")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ad8l6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qlh6b")
+text = "Salir"
+alignment = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="VHS" type="CanvasLayer" parent="PauseMenu"]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu/VHS"]
+material = SubResource("ShaderMaterial_ry0ko")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PauseSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_h4be7")
+volume_db = -9.125
+
+[connection signal="set_movement_direction" from="." to="MovementController" method="_on_set_movement_direction"]
+[connection signal="set_movement_state" from="." to="SpringArmPivot" method="_on_player_set_movement_state"]
+[connection signal="set_movement_state" from="." to="MovementController" method="_on_set_movement_state"]
+[connection signal="set_movement_state" from="." to="AnimationController" method="_on_player_set_movement_state"]
+[connection signal="pressed" from="PauseMenu/Continue" to="PauseMenu" method="_on_continue_pressed"]
+[connection signal="pressed" from="PauseMenu/Exit" to="PauseMenu" method="_on_exit_pressed"]
+
+[editable path="CharacterSkin"]
+[editable path="CharacterSkin/Armature/Skeleton3D/BoneAttachment3D/SpaceGun"]

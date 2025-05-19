@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://chr6uke4tls28"]
+
+[ext_resource type="Script" uid="uid://c07vmwntk3fy3" path="res://src/script/Player/bullet.gd" id="1_l8iqw"]
+[ext_resource type="AudioStream" uid="uid://uec4jnvkiid7" path="res://src/assets/sounds/shoot_sound.mp3" id="2_3xgn3"]
+[ext_resource type="AudioStream" uid="uid://bayy16qc6xi1u" path="res://src/assets/sounds/impact_shoot.ogg" id="3_yq7vj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_aa6xk"]
+size = Vector3(0.65, 0.515, 5.11)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l8iqw"]
+albedo_color = Color(0.454338, 0.78899, 0.788321, 1)
+emission_enabled = true
+emission = Color(0.156857, 0.581687, 0.768204, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3xgn3"]
+albedo_color = Color(0.490196, 1, 1, 1)
+emission_enabled = true
+emission = Color(0.227451, 0.823529, 0.854902, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yq7vj"]
+direction = Vector3(0, 0, -1)
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_ykfxr"]
+size = Vector3(0.085, 0.09, 0.13)
+
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_l8iqw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_aa6xk")
+surface_material_override/0 = SubResource("StandardMaterial3D_l8iqw")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(13.725, 0, 0, 0, -0.277135, -13.7222, 0, 13.7222, -0.277135, -0.00432579, -0.0031812, 0.19886)
+target_position = Vector3(0.01, -0.315, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.181955, -0.473078)
+material_override = SubResource("StandardMaterial3D_3xgn3")
+emitting = false
+one_shot = true
+explosiveness = 1.0
+collision_base_size = 0.0
+process_material = SubResource("ParticleProcessMaterial_yq7vj")
+draw_pass_1 = SubResource("BoxMesh_ykfxr")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="BulletSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_3xgn3")
+volume_db = -6.872
+
+[node name="BulletImpactSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_yq7vj")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

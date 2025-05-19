@@ -1,0 +1,118 @@
+[gd_scene load_steps=17 format=3 uid="uid://b3w2ao00mtvbr"]
+
+[ext_resource type="Script" uid="uid://bipj56ii60sdx" path="res://src/script/enemy.gd" id="1_e1bd7"]
+[ext_resource type="PackedScene" uid="uid://q5t5fa8kybph" path="res://src/assets/player/enemy.gltf" id="2_43hrp"]
+[ext_resource type="AudioStream" uid="uid://cgdj2puf3nap1" path="res://src/assets/sounds/metal_step_alt_1.mp3" id="3_qedtn"]
+[ext_resource type="AudioStream" uid="uid://byo6ri3wthy0k" path="res://src/assets/sounds/metal_step_alt_2.mp3" id="4_uaspr"]
+[ext_resource type="AudioStream" uid="uid://uxch5hupgvte" path="res://src/assets/sounds/spider_attack_1.mp3" id="5_4pe4f"]
+[ext_resource type="AudioStream" uid="uid://cb1k5ptp60bln" path="res://src/assets/sounds/spider_attack_2.mp3" id="6_vwyiv"]
+[ext_resource type="AudioStream" uid="uid://bpgxv8pm7mhim" path="res://src/assets/sounds/spider_attack_3.mp3" id="7_0jpkj"]
+[ext_resource type="AudioStream" uid="uid://djhlyosopcngr" path="res://src/assets/sounds/spider_attack_4.mp3" id="8_t8r1r"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e1bd7"]
+radius = 1.26464
+height = 3.04938
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_e1bd7"]
+radius = 11.5791
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_43hrp"]
+radius = 1.84619
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_43hrp"]
+albedo_color = Color(0.490196, 1, 0.184314, 1)
+emission_enabled = true
+emission = Color(0.261822, 0.950301, 0.121569, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x0mr8"]
+direction = Vector3(0, 0, -1)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_qedtn"]
+size = Vector3(0.085, 0.09, 0.13)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_k517k"]
+streams_count = 2
+stream_0/stream = ExtResource("3_qedtn")
+stream_1/stream = ExtResource("4_uaspr")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_q8yqk"]
+streams_count = 4
+stream_0/stream = ExtResource("5_4pe4f")
+stream_1/stream = ExtResource("6_vwyiv")
+stream_2/stream = ExtResource("7_0jpkj")
+stream_3/stream = ExtResource("8_t8r1r")
+
+[node name="Enemy" type="CharacterBody3D" groups=["enemy"]]
+script = ExtResource("1_e1bd7")
+
+[node name="EnemyTexture" parent="." instance=ExtResource("2_43hrp")]
+transform = Transform3D(3.01, 0, 0, 0, 3.01, 0, 0, 0, 3.01, 0.271506, 0, 0.12787)
+
+[node name="Skeleton3D" parent="EnemyTexture/ScabArmature" index="0"]
+bones/1/rotation = Quaternion(-0.477582, 0.130075, -0.477812, 0.725735)
+bones/2/rotation = Quaternion(0.775271, -0.43385, 0.419385, -0.186669)
+bones/5/rotation = Quaternion(0.628627, 0.709348, 0.205005, -0.244186)
+bones/6/rotation = Quaternion(0.821164, 0.329113, -0.44421, -0.141605)
+bones/7/position = Vector3(0.223628, 0.56669, 0.356128)
+bones/11/rotation = Quaternion(0.496673, 0.503304, -0.496674, 0.503305)
+bones/12/rotation = Quaternion(-0.842791, -1.43567e-08, 7.20164e-07, 0.538241)
+bones/13/rotation = Quaternion(-0.294858, 0.0584228, -0.364188, 0.881483)
+bones/14/rotation = Quaternion(-0.428534, 0.787999, -0.338492, 0.284323)
+bones/15/rotation = Quaternion(-0.293975, -0.0380489, 0.343465, 0.891158)
+bones/16/rotation = Quaternion(0.428534, 0.787999, -0.338492, -0.284324)
+bones/17/position = Vector3(0.0635994, 0.197505, -0.189751)
+bones/18/position = Vector3(-0.0636, 0.197505, -0.189751)
+bones/18/rotation = Quaternion(-0.00329294, 0.984291, 0.175553, -0.0184639)
+bones/19/rotation = Quaternion(0.708843, -1.11914e-08, -6.02752e-07, 0.705366)
+bones/19/scale = Vector3(1, 1, 1)
+
+[node name="EnemyColission" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34955, 0.982926, 0)
+shape = SubResource("CapsuleShape3D_e1bd7")
+
+[node name="EnemyDetection" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.22481)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDetection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.381735, 1, 2.13049)
+shape = SubResource("CylinderShape3D_e1bd7")
+
+[node name="AttackArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.166282, 1, -0.242622)
+shape = SubResource("CylinderShape3D_43hrp")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.151123, -0.988515, 0, 0.988515, 0.151123, 0, -0.541551, -0.473078)
+material_override = SubResource("StandardMaterial3D_43hrp")
+emitting = false
+amount = 19
+one_shot = true
+explosiveness = 1.0
+collision_base_size = 0.0
+process_material = SubResource("ParticleProcessMaterial_x0mr8")
+draw_pass_1 = SubResource("BoxMesh_qedtn")
+
+[node name="Sounds" type="Node3D" parent="."]
+
+[node name="Walk" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = SubResource("AudioStreamRandomizer_k517k")
+volume_db = -6.612
+
+[node name="Attack" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = SubResource("AudioStreamRandomizer_q8yqk")
+volume_db = -9.257
+
+[connection signal="body_entered" from="EnemyDetection" to="." method="_on_enemy_detection_body_entered"]
+[connection signal="body_exited" from="EnemyDetection" to="." method="_on_enemy_detection_body_exited"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="EnemyTexture"]

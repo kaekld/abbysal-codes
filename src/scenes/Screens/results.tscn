@@ -1,0 +1,319 @@
+[gd_scene load_steps=20 format=3 uid="uid://bagvrxe3ovf0c"]
+
+[ext_resource type="Script" uid="uid://bvxh55u222ve" path="res://src/script/Screens/results.gd" id="1_ypc36"]
+[ext_resource type="AudioStream" uid="uid://sblj1u8ejf7e" path="res://src/assets/sounds/selection_audio.ogg" id="2_y424i"]
+[ext_resource type="AudioStream" uid="uid://defx72lr8gmw" path="res://src/assets/sounds/stat_load.wav" id="3_7mlpu"]
+[ext_resource type="FontFile" uid="uid://bxnqyjurwykgt" path="res://src/assets/fonts/Nokia 3410.ttf" id="3_j7yie"]
+[ext_resource type="AudioStream" uid="uid://c70o3ebyosdpf" path="res://src/assets/sounds/failed_mission.wav" id="4_fiyb8"]
+[ext_resource type="Shader" uid="uid://dct1g77yeoicx" path="res://src/Shaders/vhs.gdshader" id="4_ypc36"]
+[ext_resource type="Texture2D" uid="uid://gf533nqrvuok" path="res://src/Shaders/rgba-noise-medium.png" id="5_7mlpu"]
+[ext_resource type="AudioStream" uid="uid://cdbxy1i8n305g" path="res://src/assets/sounds/complete_mission.wav" id="5_upk1s"]
+[ext_resource type="VideoStream" uid="uid://bv41tf4knrvau" path="res://src/assets/player/scanned/char1.ogv" id="6_fiyb8"]
+[ext_resource type="VideoStream" uid="uid://4e4if1iqvkuq" path="res://src/assets/player/scanned/char2.ogv" id="7_upk1s"]
+[ext_resource type="VideoStream" uid="uid://pwmqt28kbluc" path="res://src/assets/player/scanned/char3.ogv" id="8_s5o48"]
+[ext_resource type="Texture2D" uid="uid://bsuqqpfc0qwwl" path="res://src/main_menu/fired.png" id="10_7mlpu"]
+
+[sub_resource type="Animation" id="Animation_78q6m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["RESULTADOS DE LA MISIÓN."]
+}
+
+[sub_resource type="Animation" id="Animation_8ijbl"]
+resource_name = "loading_results"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["RESULTADOS DE LA MISIÓN.", "RESULTADOS DE LA MISIÓN..", "RESULTADOS DE LA MISIÓN...", "RESULTADOS DE LA MISIÓN"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5nu6o"]
+_data = {
+&"RESET": SubResource("Animation_78q6m"),
+&"loading_results": SubResource("Animation_8ijbl")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lgo70"]
+shader = ExtResource("4_ypc36")
+shader_parameter/vhs_resolution = Vector2(320, 240)
+shader_parameter/samples = 2
+shader_parameter/crease_noise = 1.0
+shader_parameter/crease_opacity = 0.5
+shader_parameter/filter_intensity = 0.2
+shader_parameter/tape_crease_smear = 0.2
+shader_parameter/tape_crease_intensity = 0.2
+shader_parameter/tape_crease_jitter = 0.1
+shader_parameter/tape_crease_speed = 0.5
+shader_parameter/tape_crease_discoloration = 0.0
+shader_parameter/bottom_border_thickness = 6.0
+shader_parameter/bottom_border_jitter = 6.0
+shader_parameter/noise_intensity = 0.2
+shader_parameter/noise_texture = ExtResource("5_7mlpu")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7mlpu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fiyb8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_upk1s"]
+
+[node name="FinalStats" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ypc36")
+
+[node name="MainAudio" type="Node" parent="."]
+
+[node name="AmbientAudio" type="AudioStreamPlayer" parent="MainAudio"]
+stream = ExtResource("2_y424i")
+volume_db = -9.08
+autoplay = true
+
+[node name="Load" type="AudioStreamPlayer" parent="MainAudio"]
+stream = ExtResource("3_7mlpu")
+volume_db = -5.778
+
+[node name="Failed" type="AudioStreamPlayer" parent="MainAudio"]
+stream = ExtResource("4_fiyb8")
+
+[node name="Complete" type="AudioStreamPlayer" parent="MainAudio"]
+stream = ExtResource("5_upk1s")
+
+[node name="Background" type="ColorRect" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+
+[node name="Character1_Scan" type="VideoStreamPlayer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.567708
+anchor_top = 0.0540123
+anchor_right = 0.967882
+anchor_bottom = 0.881173
+stream = ExtResource("6_fiyb8")
+autoplay = true
+expand = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Character2_Scan" type="VideoStreamPlayer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.596354
+anchor_top = 0.0925926
+anchor_right = 0.965278
+anchor_bottom = 0.867284
+stream = ExtResource("7_upk1s")
+autoplay = true
+expand = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Character3_Scan" type="VideoStreamPlayer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.585069
+anchor_top = 0.0740741
+anchor_right = 0.953993
+anchor_bottom = 0.834877
+stream = ExtResource("8_s5o48")
+autoplay = true
+expand = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="MainInformation" type="Control" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" type="VBoxContainer" parent="MainInformation"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0546875
+anchor_top = 0.0833333
+anchor_right = 0.802083
+anchor_bottom = 0.276235
+theme_override_constants/separation = 20
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="MainInformation/Header"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("3_j7yie")
+theme_override_font_sizes/font_size = 41
+text = "RESULTADOS DE LA MISIÓN."
+
+[node name="TitlePlayer" type="AnimationPlayer" parent="MainInformation/Header"]
+libraries = {
+&"": SubResource("AnimationLibrary_5nu6o")
+}
+
+[node name="Stats" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.0677083
+anchor_top = 0.268519
+anchor_right = 0.59809
+anchor_bottom = 0.790123
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0196399
+anchor_top = 0.00591716
+anchor_right = 0.977087
+anchor_bottom = 1.07101
+theme_override_constants/separation = 50
+metadata/_edit_use_anchors_ = true
+
+[node name="Reactors" type="Label" parent="Stats/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("3_j7yie")
+theme_override_font_sizes/font_size = 25
+text = "Reactores deshabilitados: "
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Time" type="Label" parent="Stats/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("3_j7yie")
+theme_override_font_sizes/font_size = 25
+text = "Tiempo de la misión:"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Damage" type="Label" parent="Stats/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("3_j7yie")
+theme_override_font_sizes/font_size = 25
+text = "Porcentaje de lesión: "
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="FinalResult" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.131944
+anchor_top = 0.655864
+anchor_right = 0.66059
+anchor_bottom = 0.763889
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("3_j7yie")
+theme_override_font_sizes/font_size = 63
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Fired" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Fired"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.654514
+anchor_top = 0.373457
+anchor_right = 0.884549
+anchor_bottom = 0.570988
+offset_bottom = -3.05176e-05
+rotation = -0.0919086
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Fired"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.628472
+anchor_top = 0.297839
+anchor_right = 0.921007
+anchor_bottom = 0.603395
+texture = ExtResource("10_7mlpu")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_lgo70")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GoToMain" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.598958
+anchor_top = 0.864312
+anchor_right = 0.947778
+anchor_bottom = 0.969042
+offset_top = -0.0740013
+offset_right = 0.159973
+offset_bottom = 0.060997
+theme_override_colors/font_hover_color = Color(0.594076, 0.997531, 0.52485, 1)
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_colors/font_focus_color = Color(0.262745, 0.835294, 0.133333, 1)
+theme_override_colors/font_pressed_color = Color(0.262745, 0.835294, 0.133333, 1)
+theme_override_fonts/font = ExtResource("3_j7yie")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7mlpu")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fiyb8")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_upk1s")
+text = "Ir al menú"
+alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="GoToMain" to="." method="_on_go_to_main_pressed"]

@@ -1,0 +1,163 @@
+[gd_scene load_steps=15 format=3 uid="uid://b6lse87ex8d4f"]
+
+[ext_resource type="Script" uid="uid://djs2liuiajbl2" path="res://src/script/InteractObjects/elevator.gd" id="1_lo5e8"]
+[ext_resource type="PackedScene" uid="uid://ddp8sv5lv4yru" path="res://src/assets/levels/elevator/elevator.glb" id="2_80kj0"]
+[ext_resource type="AudioStream" uid="uid://dhgaeofy5g8tx" path="res://src/assets/sounds/moving_ascensor.wav" id="4_a2icr"]
+[ext_resource type="AudioStream" uid="uid://ciji42agkbohq" path="res://src/assets/sounds/ascensor_open.mp3" id="4_iok5u"]
+[ext_resource type="AudioStream" uid="uid://dom1tj5dgw3e" path="res://src/assets/sounds/ascensor_close.mp3" id="5_w822c"]
+
+[sub_resource type="Animation" id="Animation_nqffv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sketchfab_model:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-2.9681, 0.0682545, 4.6798)]
+}
+
+[sub_resource type="Animation" id="Animation_lo5e8"]
+resource_name = "down"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sketchfab_model:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 9.93333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-2.9681, -14.2225, 4.6798), Vector3(-2.9681, 0.0682545, 4.6798)]
+}
+
+[sub_resource type="Animation" id="Animation_aogd4"]
+resource_name = "up"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sketchfab_model:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-2.9681, 0.0682545, 4.6798), Vector3(-2.9681, -14.2225, 4.6798)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vnhe1"]
+_data = {
+&"RESET": SubResource("Animation_nqffv"),
+&"down": SubResource("Animation_lo5e8"),
+&"up": SubResource("Animation_aogd4")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6s6sn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_718ib"]
+size = Vector3(2.5, 0.18, 2.515)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fhmu6"]
+size = Vector3(2.335, 0.37, 2.395)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lo5e8"]
+size = Vector3(2.175, 0.495, 2.47)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_80kj0"]
+size = Vector3(2.54, 0.135, 2.81)
+
+[node name="Elevator" type="Node3D"]
+script = ExtResource("1_lo5e8")
+
+[node name="Elevator" parent="." instance=ExtResource("2_80kj0")]
+transform = Transform3D(-0.84085, 0, -0.541268, 0, 1, 0, 0.541268, 0, -0.84085, 4.05455, 15.747, 5.01883)
+
+[node name="Sketchfab_model" parent="Elevator" index="0"]
+transform = Transform3D(0.354124, -0.580513, -2.5375e-08, 0, -2.97237e-08, 0.68, -0.580513, -0.354124, -1.54793e-08, -2.9681, 0.0682545, 4.6798)
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="Elevator"]
+libraries = {
+&"": SubResource("AnimationLibrary_vnhe1")
+}
+
+[node name="ElevadotUp" type="Node3D" parent="."]
+
+[node name="ElevatorEntrance" type="Area3D" parent="ElevadotUp"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ElevadotUp/ElevatorEntrance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.21884, 16.3833, -0.568281)
+shape = SubResource("BoxShape3D_6s6sn")
+
+[node name="LabelEntrance" type="Label3D" parent="ElevadotUp"]
+transform = Transform3D(0.00745249, 0, -0.999972, 0, 1, 0, 0.999972, 0, 0.00745249, 2.24243, 17.3472, 0.983206)
+text = "Presiona \"E\" para entrar"
+
+[node name="Inside" type="Area3D" parent="ElevadotUp"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ElevadotUp/Inside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 15.9444, -0.557917)
+shape = SubResource("BoxShape3D_718ib")
+
+[node name="ElevatorUp" type="Area3D" parent="ElevadotUp"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ElevadotUp/ElevatorUp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.08051, 1.74762, -0.512372)
+shape = SubResource("BoxShape3D_fhmu6")
+
+[node name="ElevatorDown" type="Node3D" parent="."]
+
+[node name="LabelEntranceExit" type="Label3D" parent="ElevatorDown"]
+transform = Transform3D(0.00745249, 0, -0.999972, 0, 1, 0, 0.999972, 0, 0.00745249, 2.24243, 3.36294, 0.704473)
+text = "Presiona \"E\" para subir"
+
+[node name="ElevatorEntranceExit" type="Area3D" parent="ElevatorDown"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ElevatorDown/ElevatorEntranceExit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.21884, 2.21185, -0.568281)
+shape = SubResource("BoxShape3D_6s6sn")
+
+[node name="InsideDown" type="Area3D" parent="ElevatorDown"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.90763, 2.15363, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ElevatorDown/InsideDown"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35926, -0.506234, -0.501446)
+shape = SubResource("BoxShape3D_lo5e8")
+
+[node name="ElevatorDown" type="Area3D" parent="ElevatorDown"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ElevatorDown/ElevatorDown"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.07517, 15.9168, -0.564321)
+shape = SubResource("BoxShape3D_80kj0")
+
+[node name="Sounds" type="Node3D" parent="."]
+
+[node name="Moving" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource("4_a2icr")
+volume_db = 18.512
+
+[node name="Open" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource("4_iok5u")
+volume_db = 27.769
+
+[node name="Close" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource("5_w822c")
+volume_db = 27.769
+
+[connection signal="body_entered" from="ElevadotUp/ElevatorEntrance" to="." method="_on_elevator_entrance_body_entered"]
+[connection signal="body_exited" from="ElevadotUp/ElevatorEntrance" to="." method="_on_elevator_entrance_body_exited"]
+[connection signal="body_entered" from="ElevadotUp/Inside" to="." method="_on_inside_body_entered"]
+[connection signal="body_entered" from="ElevadotUp/ElevatorUp" to="." method="_on_elevator_up_body_entered"]
+[connection signal="body_entered" from="ElevatorDown/ElevatorEntranceExit" to="." method="_on_elevator_entrance_exit_body_entered"]
+[connection signal="body_exited" from="ElevatorDown/ElevatorEntranceExit" to="." method="_on_elevator_entrance_exit_body_exited"]
+[connection signal="body_entered" from="ElevatorDown/InsideDown" to="." method="_on_inside_down_body_entered"]
+[connection signal="body_entered" from="ElevatorDown/ElevatorDown" to="." method="_on_elevator_down_body_entered"]
+
+[editable path="Elevator"]

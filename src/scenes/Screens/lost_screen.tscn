@@ -1,0 +1,195 @@
+[gd_scene load_steps=16 format=3 uid="uid://djxsvogm5qvul"]
+
+[ext_resource type="Script" uid="uid://kd3gekjc0tky" path="res://src/script/Screens/lost_screen.gd" id="1_gah0v"]
+[ext_resource type="FontFile" uid="uid://bxnqyjurwykgt" path="res://src/assets/fonts/Nokia 3410.ttf" id="1_wr62g"]
+[ext_resource type="AudioStream" uid="uid://c70o3ebyosdpf" path="res://src/assets/sounds/failed_mission.wav" id="2_g00cs"]
+[ext_resource type="VideoStream" uid="uid://bv41tf4knrvau" path="res://src/assets/player/scanned/char1.ogv" id="2_j8nmu"]
+[ext_resource type="AudioStream" uid="uid://defx72lr8gmw" path="res://src/assets/sounds/stat_load.wav" id="2_wbed3"]
+[ext_resource type="VideoStream" uid="uid://4e4if1iqvkuq" path="res://src/assets/player/scanned/char2.ogv" id="3_lqihm"]
+[ext_resource type="VideoStream" uid="uid://pwmqt28kbluc" path="res://src/assets/player/scanned/char3.ogv" id="4_gah0v"]
+[ext_resource type="Texture2D" uid="uid://bsuqqpfc0qwwl" path="res://src/main_menu/fired.png" id="5_j8nmu"]
+[ext_resource type="Shader" uid="uid://dct1g77yeoicx" path="res://src/Shaders/vhs.gdshader" id="5_wbed3"]
+[ext_resource type="Texture2D" uid="uid://gf533nqrvuok" path="res://src/Shaders/rgba-noise-medium.png" id="6_g00cs"]
+[ext_resource type="AudioStream" uid="uid://c7phtgvb117i0" path="res://src/assets/sounds/lost.mp3" id="8_lqihm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lqihm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gah0v"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wbed3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_shfnj"]
+shader = ExtResource("5_wbed3")
+shader_parameter/vhs_resolution = Vector2(320, 240)
+shader_parameter/samples = 2
+shader_parameter/crease_noise = 1.0
+shader_parameter/crease_opacity = 0.5
+shader_parameter/filter_intensity = 0.2
+shader_parameter/tape_crease_smear = 0.2
+shader_parameter/tape_crease_intensity = 0.2
+shader_parameter/tape_crease_jitter = 0.1
+shader_parameter/tape_crease_speed = 0.5
+shader_parameter/tape_crease_discoloration = 0.0
+shader_parameter/bottom_border_thickness = 6.0
+shader_parameter/bottom_border_jitter = 6.0
+shader_parameter/noise_intensity = 0.2
+shader_parameter/noise_texture = ExtResource("6_g00cs")
+
+[node name="LostScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gah0v")
+
+[node name="Failed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_g00cs")
+volume_db = 9.079
+
+[node name="Load" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_wbed3")
+
+[node name="Ambient" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_lqihm")
+volume_db = -7.429
+autoplay = true
+
+[node name="Background" type="ColorRect" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+
+[node name="Character1_Scan" type="VideoStreamPlayer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.296007
+anchor_top = 0.111111
+anchor_right = 0.696181
+anchor_bottom = 0.938272
+stream = ExtResource("2_j8nmu")
+autoplay = true
+expand = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Character2_Scan" type="VideoStreamPlayer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.314236
+anchor_top = 0.143519
+anchor_right = 0.68316
+anchor_bottom = 0.91821
+offset_right = 6.10352e-05
+stream = ExtResource("3_lqihm")
+autoplay = true
+expand = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Character3_Scan" type="VideoStreamPlayer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.31684
+anchor_top = 0.152778
+anchor_right = 0.685764
+anchor_bottom = 0.913581
+stream = ExtResource("4_gah0v")
+autoplay = true
+expand = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.230903
+anchor_top = 0.0632716
+anchor_right = 0.771701
+anchor_bottom = 0.134259
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_fonts/font = ExtResource("1_wr62g")
+theme_override_font_sizes/font_size = 41
+text = "HAS FALLADO LA MISIÓN"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Fired" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Fired"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.373264
+anchor_top = 0.399692
+anchor_right = 0.603299
+anchor_bottom = 0.597223
+offset_bottom = -3.05176e-05
+rotation = -0.0919086
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Fired"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.347222
+anchor_top = 0.324074
+anchor_right = 0.639757
+anchor_bottom = 0.62963
+texture = ExtResource("5_j8nmu")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="GoToMain" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.598958
+anchor_top = 0.864312
+anchor_right = 0.947778
+anchor_bottom = 0.969042
+offset_top = -0.0739746
+offset_right = 0.159912
+offset_bottom = 0.0609741
+theme_override_colors/font_hover_color = Color(0.594076, 0.997531, 0.52485, 1)
+theme_override_colors/font_color = Color(0.235294, 0.737255, 0.12549, 1)
+theme_override_colors/font_focus_color = Color(0.262745, 0.835294, 0.133333, 1)
+theme_override_colors/font_pressed_color = Color(0.262745, 0.835294, 0.133333, 1)
+theme_override_fonts/font = ExtResource("1_wr62g")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lqihm")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_gah0v")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wbed3")
+text = "Ir al menú"
+alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_shfnj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="GoToMain" to="." method="_on_go_to_main_pressed"]

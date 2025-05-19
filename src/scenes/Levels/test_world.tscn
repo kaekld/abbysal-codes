@@ -1,0 +1,70 @@
+[gd_scene load_steps=13 format=3 uid="uid://w6q7m3qpdy0o"]
+
+[ext_resource type="Script" uid="uid://br3rm2ynwj8qh" path="res://src/script/Levels/testScene.gd" id="1_qejri"]
+[ext_resource type="Texture2D" uid="uid://dt4vlh80kgdhl" path="res://src/assets/player/Grid.png" id="2_147u4"]
+[ext_resource type="PackedScene" uid="uid://dbtfbwgk4g04p" path="res://src/scenes/InteractObjects/chest_2.tscn" id="3_7on2v"]
+[ext_resource type="PackedScene" uid="uid://b6lse87ex8d4f" path="res://src/scenes/InteractObjects/elevator.tscn" id="4_8geq2"]
+[ext_resource type="PackedScene" uid="uid://rmvxs2ksj2vu" path="res://src/scenes/InteractObjects/reactor.tscn" id="6_147u4"]
+[ext_resource type="PackedScene" uid="uid://b3w2ao00mtvbr" path="res://src/scenes/enemy.tscn" id="7_7on2v"]
+[ext_resource type="PackedScene" uid="uid://uwjuk3g2kafm" path="res://src/scenes/Player/player_3.tscn" id="7_8geq2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_162j2"]
+sky_top_color = Color(0.224155, 0.459845, 0.702727, 1)
+sky_horizon_color = Color(0.605448, 0.642381, 0.835424, 1)
+
+[sub_resource type="Sky" id="Sky_2hxuc"]
+sky_material = SubResource("ProceduralSkyMaterial_162j2")
+
+[sub_resource type="Environment" id="Environment_2hxuc"]
+background_mode = 2
+sky = SubResource("Sky_2hxuc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_162j2"]
+albedo_texture = ExtResource("2_147u4")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_vnhe1"]
+size = Vector3(3.555, 1, 3.56)
+
+[node name="MainScene" type="Node3D"]
+script = ExtResource("1_qejri")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2hxuc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.552456, -0.615897, -0.561661, 0.826121, 0.314863, 0.467315, -0.110971, -0.722172, 0.682754, 0, 0.936893, 0)
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 3, 0, 0, 0, 200, -2.32581, 0, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_162j2")
+
+[node name="Wall" type="CSGBox3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 3, 0, 0, 0, 2, -2.32581, 3.04337, -5.65477)
+use_collision = true
+material = SubResource("StandardMaterial3D_162j2")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.828438, 15.3691, -0.495608)
+use_collision = true
+mesh = SubResource("BoxMesh_vnhe1")
+
+[node name="Chest2" parent="." instance=ExtResource("3_7on2v")]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 1.50611, 0)
+
+[node name="Elevator" parent="." instance=ExtResource("4_8geq2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.9565, 0.0483904, 0)
+
+[node name="Reactor" parent="." instance=ExtResource("6_147u4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32755, 13.6534)
+
+[node name="Enemy" parent="." instance=ExtResource("7_7on2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2278, 1.43626, 7.71262)
+
+[node name="PlayerDefault" parent="." instance=ExtResource("7_8geq2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75267, 4.30681)
+
+[editable path="Elevator"]
+[editable path="Elevator/Elevator"]

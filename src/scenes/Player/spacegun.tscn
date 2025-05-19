@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://ba0fty2lh1iji"]
+
+[ext_resource type="PackedScene" uid="uid://drqym3m0p3v6n" path="res://src/assets/player/spacegun.glb" id="1_ql78i"]
+
+[sub_resource type="Animation" id="Animation_xluo8"]
+resource_name = "shoot"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SciFi_gun_smg_006_Material_001_0:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.0699761, 0.0746412, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.0671472), Vector3(0, 0, -0.0890093), Vector3(0, 0, -0.853448), Vector3(0, 0, -0.553204), Vector3(0, 0, -0.0671472)]
+}
+
+[sub_resource type="Animation" id="Animation_de2yw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SciFi_gun_smg_006_Material_001_0:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -0.0671472)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5qwmo"]
+_data = {
+&"RESET": SubResource("Animation_de2yw"),
+&"shoot": SubResource("Animation_xluo8")
+}
+
+[node name="SpaceGun" instance=ExtResource("1_ql78i")]
+
+[node name="SciFi_gun_smg_006_Material_001_0" parent="." index="0"]
+transform = Transform3D(-0.998921, 0.0464441, 2.03013e-09, 0, -4.37114e-08, 1, 0.0464441, 0.998921, 4.36642e-08, 0, 0, -0.0671472)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_5qwmo")
+}
+
+[node name="RayCast3D" type="RayCast3D" parent="." index="2"]
+transform = Transform3D(-1, -1.50996e-07, 2.65837e-10, 0, 0.00176056, 0.999998, -1.50996e-07, 0.999998, -0.00176056, -0.00829673, 0.75596, -4.8367)
+debug_shape_custom_color = Color(6.54578e-06, 0.90083, 0.90083, 1)

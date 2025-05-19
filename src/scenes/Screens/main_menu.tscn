@@ -1,0 +1,343 @@
+[gd_scene load_steps=22 format=3 uid="uid://5x4nnvf15ga2"]
+
+[ext_resource type="Script" uid="uid://c774f7qdsonkt" path="res://src/script/Screens/main.gd" id="1_kp3xf"]
+[ext_resource type="VideoStream" uid="uid://dtn75go5g2yu" path="res://src/main_menu/background.ogv" id="1_rm437"]
+[ext_resource type="FontFile" uid="uid://rij1t3r8forp" path="res://src/main_menu/fonts/Typo Formal Bold Demo.otf" id="2_rkeyg"]
+[ext_resource type="AudioStream" uid="uid://bxob4jlmdkbj8" path="res://src/main_menu/background_theme.mp3" id="4_iaawh"]
+[ext_resource type="Texture2D" uid="uid://bumorng55pgm8" path="res://src/main_menu/title.png" id="4_kp3xf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k6ncl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yrdre"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n5k5b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iaawh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xmjry"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ubq7q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_klrpn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2p8af"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kp3xf"]
+
+[sub_resource type="Animation" id="Animation_1ipax"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_kp3xf"]
+resource_name = "fade_out"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("start:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.882353, 0.882353, 0.882353, 0.72549), Color(0.882353, 0.882353, 0.882353, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("settings:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.882353, 0.882353, 0.882353, 0.72549), Color(0.882353, 0.882353, 0.882353, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("exit:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.882353, 0.882353, 0.882353, 0.72549), Color(0.882353, 0.882353, 0.882353, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("logo:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.698039, 0.698039, 0.698039, 0.6), Color(0.698039, 0.698039, 0.698039, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("start:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.792157)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("settings:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.792157)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("exit:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.792157)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n5k5b"]
+_data = {
+&"RESET": SubResource("Animation_1ipax"),
+&"fade_out": SubResource("Animation_kp3xf")
+}
+
+[sub_resource type="Animation" id="Animation_nnu8n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lqrmo"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6v1ae"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6v1ae"]
+_data = {
+&"RESET": SubResource("Animation_nnu8n"),
+&"fade_in": SubResource("Animation_lqrmo"),
+&"fade_out": SubResource("Animation_6v1ae")
+}
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kp3xf")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_iaawh")
+autoplay = true
+
+[node name="Background" type="VideoStreamPlayer" parent="."]
+modulate = Color(0.568973, 0.568973, 0.568973, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("1_rm437")
+autoplay = true
+expand = true
+loop = true
+
+[node name="Menu_Buttons" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="demo" type="Label" parent="Menu_Buttons"]
+modulate = Color(0.768627, 0.909804, 1, 0.509804)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.614583
+anchor_top = 0.313272
+anchor_right = 0.922743
+anchor_bottom = 0.41821
+theme_override_fonts/font = ExtResource("2_rkeyg")
+theme_override_font_sizes/font_size = 51
+text = "DEMO VERSION"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="logo" type="TextureRect" parent="Menu_Buttons"]
+modulate = Color(0.698039, 0.698039, 0.698039, 0.6)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0833333
+anchor_top = -0.0169753
+anchor_right = 0.940104
+anchor_bottom = 0.399691
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_kp3xf")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="start" type="Button" parent="Menu_Buttons"]
+modulate = Color(0.882353, 0.882353, 0.882353, 0.72549)
+self_modulate = Color(1, 1, 1, 0.792157)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.085
+anchor_top = 0.466
+anchor_right = 0.34
+anchor_bottom = 0.611
+offset_left = 0.0800018
+offset_top = 0.0319824
+offset_right = 0.320007
+offset_bottom = 0.071991
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_rkeyg")
+theme_override_font_sizes/font_size = 33
+theme_override_styles/focus = SubResource("StyleBoxEmpty_k6ncl")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_yrdre")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_n5k5b")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_iaawh")
+text = "COMENZAR PARTIDA"
+alignment = 0
+
+[node name="settings" type="Button" parent="Menu_Buttons"]
+modulate = Color(0.882353, 0.882353, 0.882353, 0.72549)
+self_modulate = Color(1, 1, 1, 0.792157)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.086
+anchor_top = 0.59
+anchor_right = 0.341
+anchor_bottom = 0.722
+offset_left = -0.0720062
+offset_top = -0.320007
+offset_right = 0.167938
+offset_bottom = 8.14395
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_rkeyg")
+theme_override_font_sizes/font_size = 33
+theme_override_styles/focus = SubResource("StyleBoxEmpty_k6ncl")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_yrdre")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_n5k5b")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_iaawh")
+text = "AJUSTES"
+alignment = 0
+
+[node name="exit" type="Button" parent="Menu_Buttons"]
+modulate = Color(0.882353, 0.882353, 0.882353, 0.72549)
+self_modulate = Color(1, 1, 1, 0.792157)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.085
+anchor_top = 0.721
+anchor_right = 0.34
+anchor_bottom = 0.866
+offset_left = 0.0800018
+offset_top = -0.208008
+offset_right = 0.320007
+offset_bottom = -0.168091
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_rkeyg")
+theme_override_font_sizes/font_size = 33
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xmjry")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ubq7q")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_klrpn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2p8af")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kp3xf")
+text = "SALIR DEL JUEGO"
+alignment = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Menu_Buttons"]
+libraries = {
+&"": SubResource("AnimationLibrary_n5k5b")
+}
+
+[node name="FadeTransition" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="FadeTransition"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="FadePlayer" type="AnimationPlayer" parent="FadeTransition"]
+libraries = {
+&"": SubResource("AnimationLibrary_6v1ae")
+}
+
+[connection signal="pressed" from="Menu_Buttons/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Menu_Buttons/exit" to="." method="_on_exit_pressed"]

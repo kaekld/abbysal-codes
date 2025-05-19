@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cui0b0ex2ed1k"
+path.s3tc="res://.godot/imported/reactor_core_1.png-d0f0e6b28d8559c197fab8536c4c572b.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "9f402a22c3321eda66fb0cd5e5e5ffc6"
+}
+
+[deps]
+
+source_file="res://src/assets/levels/energyLab/reactor_core_1.png"
+dest_files=["res://.godot/imported/reactor_core_1.png-d0f0e6b28d8559c197fab8536c4c572b.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0
